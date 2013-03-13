@@ -8,30 +8,67 @@ namespace WordSearch2
 {
     internal class Puzzle
     {
+        int RowCount, ColumnCount;
         List<string> Zero, FortyFive, Ninety, OneThirtyFive, inputWords;
 
         internal void Process (string inputDataFilePath, StreamWriter outFile, string inputWordsFilePath){
 
-            Zero = inputWords = ExtractDataRows(inputWordsFilePath);
+            inputWords = ExtractDataRows(inputWordsFilePath);
 
             inputWords.Sort(new DescendingComparer());
 
-            string inputData = ExtractData(inputDataFilePath);
+            ColumnCount = Zero[0].Length;
+            RowCount = Zero.Count();
 
-            int rowCount, columnCount;
-
-            columnCount = inputData.IndexOf("\r\n");
-            inputData = inputData.Replace("\r\n", String.Empty);
-
-            if (inputData.Length % columnCount != 0)
-                throw new ArgumentException("Jagged array found.");
-
-            rowCount = inputData.Length / columnCount;
+            Zero = ExtractDataRows(inputDataFilePath);
+            FortyFive = GetFortyFive(Zero);
+            Ninety = GetNinety(Zero);
+            OneThirtyFive = GetOneThirtyFive(Zero);
         }
 
-        List<string> GetRotatedList(List<string> list)
+        List<string> GetFortyFive(List<string> list)
         {
-            return null;
+            int x, y;
+            List<string> fortyFive = new List<string>();
+            
+            for (int i = 0; i <= ColumnCount; i++)
+            {
+                x = 0; y = i;
+
+                char[] rowChars = new Char[i + 1];
+                for (int j = 0; j <= i; j++)
+                {
+                    rowChars[j] = Zero[x][y];
+                    x++; y--;
+                }
+                fortyFive.Add(new String(rowChars));
+            }
+
+            for (int i = 1; i < RowCount; i++)
+            {
+                x = ColumnCount; y = i;
+                
+                char[] rowChars = new Char[i + 1];
+                for (int j = 0; j <= i; j++)
+                {
+                    rowChars[j] = Zero[x][y];
+                    x--; y++;
+                }
+
+                fortyFive.Add(new String(rowChars));
+            }
+
+            return fortyFive;
+        }
+
+        internal List<string> GetNinety(List<string> list)
+        {
+            return new List<string>();
+        }
+
+        internal List<string> GetOneThirtyFive(List<string> list)
+        {
+            return new List<string>();
         }
 
         internal List<string> ExtractDataRows(string filePath)
