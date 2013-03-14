@@ -12,36 +12,38 @@ namespace WordSearch2
     {
         static void Main(string[] args)
         {
-            StreamWriter outfile = new StreamWriter(args[1]);
-            Stopwatch stopWatch = new Stopwatch();
-
-            double total = 0;
-
-            for (int i = 0; i < 1000; i++)
+            using(StreamWriter outfile = new StreamWriter(args[1]))
             {
+                Stopwatch stopWatch = new Stopwatch();
 
-                stopWatch.Start();
+                double total = 0;
 
-                Puzzle puzzle = new Puzzle();
-                puzzle.Process(args[0], outfile, args[2]);
+                //for (int i = 0; i < 1000; i++)
+                //{
 
-                stopWatch.Stop();
+                    stopWatch.Start();
 
-                Console.WriteLine(stopWatch.ElapsedMilliseconds);
+                    Puzzle puzzle = new Puzzle();
+                    puzzle.Process(args[0], outfile, args[2]);
 
-                total += stopWatch.ElapsedMilliseconds;
+                    stopWatch.Stop();
 
-                stopWatch.Reset();
+                    Console.WriteLine(stopWatch.ElapsedMilliseconds);
+
+                    total += stopWatch.ElapsedMilliseconds;
+
+                    stopWatch.Reset();
+                //}
+
+                Console.WriteLine("Avg: " + total / 1000);
+
+                //TimeSpan ts = stopWatch.Elapsed;
+                //string elapsedTime = String.Format("Time elapsed in Milliseconds: {0}", ts.TotalMilliseconds);
+                //outfile.Write(elapsedTime);
+                outfile.Flush();
+                //Console.WriteLine("RuntTime " + elapsedTime);
+                Console.ReadLine();
             }
-
-            Console.WriteLine("Avg: " + total / 1000);
-
-            //TimeSpan ts = stopWatch.Elapsed;
-            //string elapsedTime = String.Format("Time elapsed in Milliseconds: {0}", ts.TotalMilliseconds);
-            //outfile.Write(elapsedTime);
-            outfile.Flush();
-            //Console.WriteLine("RuntTime " + elapsedTime);
-            Console.ReadLine();
         }
     }
 }

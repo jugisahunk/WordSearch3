@@ -39,20 +39,20 @@ namespace WordSearch2
                 char[] rowChars = new Char[i + 1];
                 for (int j = 0; j <= i; j++)
                 {
-                    rowChars[j] = Zero[x][y];
+                    rowChars[j] = Zero[y][x];
                     x++; y--;
                 }
                 fortyFive.Add(new String(rowChars));
             }
 
-            for (int i = 1; i < RowCount; i++)
+            for (int i = RowCount - 2; i >= 0; i--)
             {
-                x = ColumnCount - 1; y = i;
+                x = ColumnCount - 1; y = i - 1;
                 
-                char[] rowChars = new Char[i + 1];
-                for (int j = 0; j <= i; j++)
+                char[] rowChars = new Char[RowCount - i];
+                for (int j = 0; j < RowCount - i; j++)
                 {
-                    rowChars[j] = Zero[x][y];
+                    rowChars[j] = Zero[y][x];
                     x--; y++;
                 }
 
@@ -70,7 +70,7 @@ namespace WordSearch2
             {
                 char[] verticalRow = new char[RowCount];
                 for (int j = 0; j < RowCount; j++)
-                    verticalRow[j] = list[i][j];
+                    verticalRow[j] = list[j][i];
 
                 ninety.Add(new String(verticalRow));
             }
@@ -90,23 +90,22 @@ namespace WordSearch2
                 char[] rowChars = new Char[x + 1];
                 for (int j = 0; j <= i; j++)
                 {
-                    rowChars[j] = Zero[x][y];
+                    rowChars[j] = Zero[y][x];
                     x--; y--;
                 }
                 oneThirtyFive.Add(new String(rowChars));
             }
 
-            for (int i = 1; i < RowCount; i++)
+            for (int i = RowCount - 2; i >= 0; i--)
             {
-                x = ColumnCount - 1; y = RowCount - 1 - i;
+                x = ColumnCount -1; y = i;
 
                 char[] rowChars = new Char[y + 1];
                 for (int j = 0; j <= i; j++)
                 {
-                    rowChars[j] = Zero[x][y];
+                    rowChars[j] = Zero[y][x];
                     x--; y--;
                 }
-
                 oneThirtyFive.Add(new String(rowChars));
             }
 
